@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt">
+	<head>
+		<base href="/">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Life Deadline</title>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/main.min.css">
+	</head>
+	<body ng-app="lifedeadline">
+
+		<div class="container-fluid" ng-controller="MainController">
+			<div class="container">
+				<div class="user-data col-md-12">
+					<form name="form" novalidate>
+						<input type="text" name="userBirth" mask="39/19/9999" ng-model="userBirth" placeholder="DD/MM/AAAA">
+
+						<select ng-model="countryAverage">
+							<option ng-repeat="item in whoJSON | orderBy: 'country'" value="{{item.value}}">{{item.country}}</option>
+						</select>
+
+						<a href="#" ng-click="update(userBirth, countryAverage)">Send</a>
+					</form>
+				</div>
+			
+				<div class="col-md-12" ng-show="reload == true">
+					<div class="desc desc-past">
+						<h1>You have lived <strong>{{weeksLived}} weeks</strong> and have <strong>{{yearsLived}} years</strong>!</h1>
+					</div>
+					<div class="desc">
+						<h1>You have <strong>{{weeksLeft}} weeks</strong> to live and expect to live more <strong>{{yearsLeft}} years</strong></h1>
+					</div>
+					<div class="week" ng-repeat="square in totalSquares" ng-class="{past: $index <= weeksLived}"></div>
+				</div><!-- 
+				
+				<div class="col-md-6" ng-show="reload == true">
+					<div class="desc">
+						<h1>You have <strong>{{weeksLeft}} weeks</strong> to live and expect to live more <strong>{{yearsLeft}} years</strong></h1>
+					</div>
+					<div class="week" ng-repeat="square in squaresLeft"></div>
+				</div> -->
+			</div>
+		</div><!--/div-->
+		
+
+		<!-- REQUIRED STUFF -->
+		<script src="lib/angular/angular.min.js"></script>
+		<script src="lib/jquery/dist/jquery.min.js"></script>
+
+		<!-- ANGULAR STUFF -->
+		<script src="lib/angular-resource/angular-resource.min.js"></script>
+		<script src="lib/angular-route/angular-route.min.js"></script>
+		<script src="lib/ngMask/dist/ngMask.min.js"></script>
+		
+		<!-- JQUERY STUFF -->
+		<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="lib/velocity/velocity.min.js"></script>
+		<script src="lib/velocity/velocity.ui.min.js"></script>
+		<script src="lib/moment/min/moment-with-locales.min.js"></script>
+
+		<!-- DEV STUFF -->
+		<script src="js/app.js"></script>
+		<script src="js/functions.js"></script>
+		
+	</body>
+</html>
