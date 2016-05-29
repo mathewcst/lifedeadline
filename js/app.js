@@ -6,7 +6,9 @@ app.controller('MainController', ['$scope', '$http', function($scope, $http){
 	$scope.regions = [];
 	$scope.reload = false;
 
+	// GITHUB VERSION
 	$http.get('data/countryLife.json').success(function(data){
+	// $http.get('../data/countryLife.json').success(function(data){
 
 		angular.forEach(data.fact, function(value, key){
 			// console.log(value);
