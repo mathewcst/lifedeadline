@@ -1,7 +1,9 @@
 $white: #FFF
 $black: #000
 $blackLight: #212121
+$gray: #BDBDBD
 $indigo: #3F51B5
+$red: #d32f2f
 
 =fade($duration: 200ms)
 	-webkit-transition: all $duration linear
@@ -19,6 +21,63 @@ body
 	font-family: 'Open Sans', sans-serif
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
+
+.fade-black
+	width: 100%
+	height: 100%
+	position: fixed
+	display: none
+	opacity: 0
+	z-index: 15
+	background: transparentize($black, 0.2)
+
+
+.modal
+	width: 45vw
+	height: 55vh
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	display: none
+	opacity: 0
+	margin: auto
+	z-index: 16
+	background: $white
+	border-radius: 5px
+	padding: 5px
+	overflow: visible
+
+	.close-modal
+		font-family: 'Open Sans', sans-serif
+		position: absolute
+		top: -20px
+		right: 0
+		font-size: 1.2rem
+		background: $white
+		color: $blackLight
+		display: block
+		width: 25px
+		height: 25px
+		font-weight: 700
+		z-index: 15
+		border-top-left-radius: 5px
+		border-top-right-radius: 5px
+		text-align: center
+		margin: 0
+		line-height: 1px
+		padding-top: 10px
+		+fade()
+
+		&:hover,
+		&:focus
+			text-decoration: none
+			background: $red
+			color: $white
+			+fade()
+	
+
 
 .bg-video
 	width: 100%
@@ -54,27 +113,49 @@ body
 		background: url(../images/video-bg.png) no-repeat top center
 		background-size: cover
 
-.header
+.block
+	height: 95vh
+	padding: 10vh 0
+	overflow: hidden
 	position: relative
 	z-index: 10
-	padding: 7vh 0 2vh
+
+.header
 
 	.logo
 
 		svg
 			max-width: 300px
 			height: auto
-			margin: 0 auto
+			margin: 5vh auto 0
 			display: block
 
 	.desc
-		margin: 3vh 0
+		margin: 5vh 0 0
+
+	.desc--text
+		color: $white
+		font-size: 1.2rem
+		text-align: center
+		margin: 2vh auto
+		max-width: 50%
+
+		a
+			color: $red
+			text-decoration: underline
+			+fade()
+
+			&:hover,
+			&:focus
+				text-decoration: none
+				+fade()
 
 	.desc--list
-		margin: 0
+		margin: 5vh 0
 		padding: 0
 		list-style: none
 		text-align: center
+		display: block
 
 	.desc--item
 		display: inline
@@ -84,55 +165,92 @@ body
 		color: $white
 		font-size: 1rem
 		text-transform: uppercase
+		border: 1px solid $white
+		padding: 8px 12px
+		border-radius: 4px
 		+fade()
+
+		&.ted-talk
+			border-color: $red
+			color: $red
 
 		&:hover,
 		&:focus
-			font-weight: 700
 			text-decoration: none
+			background: $white
+			color: $blackLight
 			+fade()
 
+			&.ted-talk
+				background: $red
+				color: $white
+
+	.go-to
+		position: absolute
+		bottom: 0
+		padding: 2vh 0
+		text-align: center
+
+		.go-to--link
+			font-size: 1.7rem
+			color: $white
+			text-transform: uppercase
+
+			&:hover,
+			&:focus
+				text-decoration: none
+
+			span
+				display: block
+				position: relative
+
 .deadline
-	
+	background: $white
+
 	.user-data--form
 		max-width: 500px
 		margin: 2vh auto
 		display: block
 
+	.input-group
+		float: left
+		padding: 0
+
 	.user-birth
-		width: 150px
+		width: 95%
 		height: 50px
 		display: block
-		border: 0
+		border: 1px solid $blackLight
 		border-radius: 4px
-		font-size: 1.2rem
+		font-size: 1.1rem
 		float: left
 		padding: 4px
 		text-align: center
-		margin: 0 5px 5vh
+		margin: 0 0 5vh
 		outline: 0
 
 	.user-country
-		width: 320px
+		width: 95%
 		float: left
 		display: block
 		height: 50px
-		border: 0
-		font-size: 1.2rem
+		border: 1px solid $blackLight
+		font-size: 1.1rem
 		border-radius: 4px
-		margin: 0 5px 5vh
+		margin: 0 0 5vh
 		text-align: center
 		outline: 0
+		background: transparent
 
 		option
 			text-align: center
 
 	.calculate-deadline
-		color: $white
+		color: $indigo
 		display: block
 		width: 150px
 		height: 50px
-		border: 1px solid $white
+		border: 1px solid $indigo
 		border-radius: 4px
 		text-align: center
 		clear: both
@@ -142,53 +260,72 @@ body
 		padding-top: 10px
 		+fade()
 
+		&.disabled
+			pointer-events: none
+			cursor: pointer
+			border-color: $gray
+			color: $gray
+			+fade()
+
 		&:hover,
 		&:focus
 			text-decoration: none
 			background: $indigo
 			border-color: transparent
+			color: $white
 			+fade()
 
-
-.week
-	width: 5px
-	height: 5px
-	margin: 1px
-	display: block
-	float: left
-	border: 2px solid #3F51B5
-	font-size: 10px
-	color: #3F51B5
-	font-weight: 300
+footer
+	background: $blackLight
+	padding: 2vh 0 1.5vh
 	text-align: center
-	line-height: 38px
-
-.week.past
-	background: #f44336
-	color: #fff
-	border-color: #f44336
-
-.desc
-	margin: 20px 0
-
-.desc-past h1
-	color: #f44336
-
-h1,
-h2
-	text-align: center
-	font-size: 27px
-	color: #3F51B5
-	font-weight: 300
-	margin: 5px 0
-	line-height: 30px
+	font-size: 1rem
+	color: $white
 	text-transform: uppercase
+	
+	p
+		line-height: 1rem
+		margin: 0
 
-h1 strong
-	font-size: 31px
+// .week
+// 	width: 5px
+// 	height: 5px
+// 	margin: 1px
+// 	display: block
+// 	float: left
+// 	border: 2px solid #3F51B5
+// 	font-size: 10px
+// 	color: #3F51B5
+// 	font-weight: 300
+// 	text-align: center
+// 	line-height: 38px
 
-h2
-	font-size: 20px
+// .week.past
+// 	background: #f44336
+// 	color: #fff
+// 	border-color: #f44336
 
-h2 strong
-	font-size: 25px
+// .desc
+// 	margin: 20px 0
+
+// .desc-past h1
+// 	color: #f44336
+
+// h1,
+// h2
+// 	text-align: center
+// 	font-size: 27px
+// 	color: #3F51B5
+// 	font-weight: 300
+// 	margin: 5px 0
+// 	line-height: 30px
+// 	text-transform: uppercase
+
+// h1 strong
+// 	font-size: 31px
+
+// h2
+// 	font-size: 20px
+
+// h2 strong
+// 	font-size: 25px

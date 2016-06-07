@@ -9,20 +9,28 @@
 		<title>Life Deadline</title>
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/animate.css/animate.min.css">
 		<link rel="stylesheet" type="text/css" href="css/main.min.css">
 	</head>
 	<body ng-app="lifedeadline">
 
+		<div class="modal">
+			<a href="#" class="close-modal">x</a>
+			<iframe width="100%" height="100%" src="https://www.youtube.com/embed/arj7oStGLkU" frameborder="0" allowfullscreen></iframe>
+		</div>
+
+		<div class="fade-black"></div>
+
 		<div class="container-fluid" ng-controller="MainController">
 
-			<div class="bg-video">
-				<video autoplay id="bgvid" loop muted>
-					<source src="data/video.webm" type="video/webm">
-					<source src="data/video.mp4" type="video/mp4">
-				</video>
-			</div><!--/bg-video-->
+			<header class="header block row" id="header">
+				<div class="bg-video">
+					<video autoplay id="bgvid" loop muted>
+						<source src="data/video.webm" type="video/webm">
+						<source src="data/video.mp4" type="video/mp4">
+					</video>
+				</div><!--/bg-video-->
 
-			<header class="header row">
 				<div class="logo col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<svg width="385px" height="56px" viewBox="0 0 385 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 					    <defs></defs>
@@ -58,29 +66,49 @@
 					    </g>
 					</svg>
 				</div><!--/logo-->
+
 				<div class="desc col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="container">
+						<p class="desc--text">LifeDeadline é um projeto simples que criei após assistir a <strong>TED Talk</strong> de <strong><a href="http://twitter.com/waitbutwhy" target="_blank">Tim Urban</a></strong>.</p>
+						<p class="desc--text">Em sua palestra, <strong>Tim</strong> fala sobre os tipos de procastinadores e como todos nós temos uma deadline, seja ela definida por projetos ou pela vida.</p>
 						<ul class="desc--list">
-							<li class="desc--item"><a class="desc--link" href="#">Entenda</a></li>
+							<li class="desc--item"><a class="desc--link ted-talk" href="#">TED Talk</a></li>
 							<li class="desc--item"><a class="desc--link" href="#">Quem sou</a></li>
 							<li class="desc--item"><a class="desc--link" href="#">Github</a></li>
 						</ul>
 					</div>
 				</div><!--/desc-->
+
+				<div class="go-to col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<a href="#" class="go-to--link"><span class="animated infinite slideInDown">&#8675;</span></a>
+				</div>
 			</header><!--/header-->
 
-			<div class="deadline row">
+			<div class="deadline block row" id="deadline">
+				<div class="go-top">
+					
+				</div>
+
 				<div class="container">
 					<div class="user-data col-xs-12 col-sm-12 col-md-12">
-						<form class="user-data--form" name="form" novalidate>
-							<input type="text" name="userBirth" class="user-birth" mask="39/19/9999" ng-model="userBirth" placeholder="DD/MM/AAAA">
+						<form class="user-data--form" name="form" novalidate class="col-xs-12 col-sm-12 col-md-12">
 
-							<select ng-model="countryAverage" class="user-country">
-								<option value="" selected disabled>Selecione um país</option>
-								<option ng-repeat="item in whoJSON | orderBy: 'country'" value="{{item.value}}">{{item.country}}</option>
-							</select>
+							<div class="input-group col-xs-12 col-sm-6 col-md-6">
+								<label for="userBirth">Birth Date</label>
+								<input type="text" name="userBirth" class="user-birth" mask="39/19/9999" id="userBirth" ng-model="userBirth" placeholder="DD/MM/AAAA">
+							</div><!--input-group-->
 
-							<a href="#" class="calculate-deadline" ng-click="update(userBirth, countryAverage)">Calcular</a>
+							<div class="input-group col-xs-12 col-sm-6 col-md-6">
+								<label for="userCountry">Country</label>
+								<select ng-model="countryAverage" class="user-country" name="userCountry" id="userCountry">
+									<option value="" selected disabled>Selecione um país</option>
+									<option ng-repeat="item in whoJSON | orderBy: 'country'" value="{{item.value}}">{{item.country}}</option>
+								</select>
+							</div><!--input-group-->
+
+							<div class="col-xs-12 col-sm-12 col-md-12">
+								<a href="#" class="calculate-deadline" ng-class="{disabled:userBirth.length < 10 || countryAverage == undefined}" ng-click="update(userBirth, countryAverage)">Calcular</a>
+							</div>
 						</form>
 					</div><!--/form-->
 				
@@ -102,9 +130,12 @@
 						<div class="week" ng-repeat="square in squaresLeft"></div>
 					</div> -->
 				</div><!--/container-->
-			</div>
+			</div><!--/deadline-->
 
-		</div><!--/div-->
+			<footer class="row">
+				<p>&copy; 2016</p>
+			</footer>
+		</div><!--/container-fluid-->
 	</div>
 		
 
