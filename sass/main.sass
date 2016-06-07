@@ -286,6 +286,90 @@ footer
 		line-height: 1rem
 		margin: 0
 
+@media screen and (max-width: 460px) and (orientation: portrait)
+	.header
+
+		.logo
+
+			svg
+				max-width: 300px
+				height: auto
+				margin: 2vh auto 0
+				display: block
+
+		.desc
+			margin: 2vh 0 0
+
+		.desc--text
+			color: $white
+			font-size: 1.2rem
+			text-align: center
+			margin: 2vh auto
+
+			a
+				color: $red
+				text-decoration: underline
+				+fade()
+
+				&:hover,
+				&:focus
+					text-decoration: none
+					+fade()
+
+		.desc--list
+			margin: 5vh 0
+			padding: 0
+			list-style: none
+			text-align: center
+			display: block
+
+		.desc--item
+			display: inline
+			margin: 0 15px
+
+		.desc--link	
+			color: $white
+			font-size: 1rem
+			text-transform: uppercase
+			border: 1px solid $white
+			padding: 8px 12px
+			border-radius: 4px
+			+fade()
+
+			&.ted-talk
+				border-color: $red
+				color: $red
+
+			&:hover,
+			&:focus
+				text-decoration: none
+				background: $white
+				color: $blackLight
+				+fade()
+
+				&.ted-talk
+					background: $red
+					color: $white
+
+		.go-to
+			position: absolute
+			bottom: 0
+			padding: 2vh 0
+			text-align: center
+
+			.go-to--link
+				font-size: 1.7rem
+				color: $white
+				text-transform: uppercase
+
+				&:hover,
+				&:focus
+					text-decoration: none
+
+				span
+					display: block
+					position: relative
+
 // .week
 // 	width: 5px
 // 	height: 5px
