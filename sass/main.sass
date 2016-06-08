@@ -114,13 +114,14 @@ body
 		background-size: cover
 
 .block
-	height: 95vh
+	min-height: 25vh
 	padding: 10vh 0
 	overflow: hidden
 	position: relative
 	z-index: 10
 
 .header
+	min-height: 90vh
 
 	.logo
 
@@ -158,7 +159,7 @@ body
 
 	.desc--item
 		display: inline
-		margin: 0 15px
+		margin: 0 2%
 
 	.desc--link	
 		color: $white
@@ -206,6 +207,27 @@ body
 .deadline
 	background: $white
 
+	.go-top
+		position: fixed
+		bottom: 2%
+		right: 2%
+
+	.go-top--link
+		color: $indigo
+		font-size: 1.5rem
+		border: 1px solid $indigo
+		padding: 3px 7px
+		border-radius: 5px
+		display: none
+		+fade()
+
+		&:hover,
+		&:focus
+			background: $indigo
+			color: $white
+			text-decoration: none
+			+fade()
+
 	.user-data--form
 		max-width: 500px
 		margin: 2vh auto
@@ -244,7 +266,8 @@ body
 		option
 			text-align: center
 
-	.calculate-deadline
+	.calculate-deadline,
+	.ghost-btn
 		color: $indigo
 		display: block
 		width: 150px
@@ -260,19 +283,24 @@ body
 		+fade()
 
 		&.disabled
+			cursor: not-allowed
 			pointer-events: none
-			cursor: pointer
 			border-color: $gray
 			color: $gray
 			+fade()
 
 		&:hover,
-		&:focus
+		&:focus,
+		&.is-active
 			text-decoration: none
 			background: $indigo
 			border-color: transparent
 			color: $white
 			+fade()
+
+	.ghost-btn
+		display: inline-block
+		margin-right: 10px
 
 footer
 	background: $blackLight
@@ -286,129 +314,152 @@ footer
 		line-height: 1rem
 		margin: 0
 
-@media screen and (max-width: 460px) and (orientation: portrait)
-	.header
 
-		.logo
+// RESULTS
 
-			svg
-				max-width: 300px
-				height: auto
-				margin: 2vh auto 0
-				display: block
+.chart-block
+	margin: 0
+	padding: 0
 
-		.desc
-			margin: 2vh 0 0
+.week
+	width: 8px
+	height: 8px
+	margin: 2px
+	display: block
+	float: left
+	border: 1px solid $indigo
+	font-size: 10px
+	color: $indigo
+	font-weight: 300
+	text-align: center
+	line-height: 38px
 
-		.desc--text
-			color: $white
-			font-size: 1.2rem
-			text-align: center
-			margin: 2vh auto
+.week.past
+	background: $red
+	color: #fff
+	border-color: $red
 
-			a
-				color: $red
-				text-decoration: underline
-				+fade()
+.result
+	margin: 20px 0
+	text-align: center
 
-				&:hover,
-				&:focus
-					text-decoration: none
-					+fade()
+.result-past h1
+	color: $red
 
-		.desc--list
-			margin: 5vh 0
-			padding: 0
-			list-style: none
-			text-align: center
-			display: block
+.understand-block
+	p
+		font-size: 1.2rem
+		text-align: center
+		max-width: 60%
+		color: $blackLight
+		margin: 0 auto 15px
 
-		.desc--item
-			display: inline
-			margin: 0 15px
+	a
+		color: $red
 
-		.desc--link	
-			color: $white
-			font-size: 1rem
-			text-transform: uppercase
-			border: 1px solid $white
-			padding: 8px 12px
-			border-radius: 4px
-			+fade()
+		&:hover,
+		&:focus
+			text-decoration: none
 
-			&.ted-talk
-				border-color: $red
-				color: $red
+h1,
+h2
+	text-align: center
+	font-size: 27px
+	color: $indigo
+	font-weight: 300
+	margin: 5px 0
+	line-height: 30px
+	text-transform: uppercase
 
-			&:hover,
-			&:focus
-				text-decoration: none
-				background: $white
-				color: $blackLight
-				+fade()
+h1 strong
+	font-size: 31px
 
-				&.ted-talk
-					background: $red
-					color: $white
+h2
+	font-size: 20px
 
-		.go-to
-			position: absolute
-			bottom: 0
-			padding: 2vh 0
-			text-align: center
+h2 strong
+	font-size: 25px
 
-			.go-to--link
-				font-size: 1.7rem
-				color: $white
-				text-transform: uppercase
+// @media screen and (max-width: 460px) and (orientation: portrait)
+// 	.header
 
-				&:hover,
-				&:focus
-					text-decoration: none
+// 		.logo
 
-				span
-					display: block
-					position: relative
+// 			svg
+// 				max-width: 300px
+// 				height: auto
+// 				margin: 2vh auto 0
+// 				display: block
 
-// .week
-// 	width: 5px
-// 	height: 5px
-// 	margin: 1px
-// 	display: block
-// 	float: left
-// 	border: 2px solid #3F51B5
-// 	font-size: 10px
-// 	color: #3F51B5
-// 	font-weight: 300
-// 	text-align: center
-// 	line-height: 38px
+// 		.desc
+// 			margin: 2vh 0 0
 
-// .week.past
-// 	background: #f44336
-// 	color: #fff
-// 	border-color: #f44336
+// 		.desc--text
+// 			color: $white
+// 			font-size: 1.2rem
+// 			text-align: center
+// 			margin: 2vh auto
 
-// .desc
-// 	margin: 20px 0
+// 			a
+// 				color: $red
+// 				text-decoration: underline
+// 				+fade()
 
-// .desc-past h1
-// 	color: #f44336
+// 				&:hover,
+// 				&:focus
+// 					text-decoration: none
+// 					+fade()
 
-// h1,
-// h2
-// 	text-align: center
-// 	font-size: 27px
-// 	color: #3F51B5
-// 	font-weight: 300
-// 	margin: 5px 0
-// 	line-height: 30px
-// 	text-transform: uppercase
+// 		.desc--list
+// 			margin: 5vh 0
+// 			padding: 0
+// 			list-style: none
+// 			text-align: center
+// 			display: block
 
-// h1 strong
-// 	font-size: 31px
+// 		.desc--item
+// 			display: inline
+// 			margin: 0 15px
 
-// h2
-// 	font-size: 20px
+// 		.desc--link	
+// 			color: $white
+// 			font-size: 1rem
+// 			text-transform: uppercase
+// 			border: 1px solid $white
+// 			padding: 8px 12px
+// 			border-radius: 4px
+// 			+fade()
 
-// h2 strong
-// 	font-size: 25px
+// 			&.ted-talk
+// 				border-color: $red
+// 				color: $red
+
+// 			&:hover,
+// 			&:focus
+// 				text-decoration: none
+// 				background: $white
+// 				color: $blackLight
+// 				+fade()
+
+// 				&.ted-talk
+// 					background: $red
+// 					color: $white
+
+// 		.go-to
+// 			position: absolute
+// 			bottom: 0
+// 			padding: 2vh 0
+// 			text-align: center
+
+// 			.go-to--link
+// 				font-size: 1.7rem
+// 				color: $white
+// 				text-transform: uppercase
+
+// 				&:hover,
+// 				&:focus
+// 					text-decoration: none
+
+// 				span
+// 					display: block
+// 					position: relative

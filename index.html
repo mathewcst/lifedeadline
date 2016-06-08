@@ -10,6 +10,7 @@
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="lib/bootstrap/dist/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="lib/animate.css/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/angular-chart.js/dist/angular-chart.min.css">
 		<link rel="stylesheet" type="text/css" href="css/main.min.css">
 	</head>
 	<body ng-app="lifedeadline">
@@ -70,13 +71,13 @@
 				<div class="desc col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<div class="container">
 						<div class="col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3">
-							<p class="desc--text">LifeDeadline é um projeto simples que criei após assistir a <strong>TED Talk</strong> de <strong><a href="http://twitter.com/waitbutwhy" target="_blank">Tim Urban</a></strong>.</p>
-							<p class="desc--text">Em sua palestra, <strong>Tim</strong> fala sobre os tipos de procastinadores e como todos nós temos uma deadline, seja ela definida por projetos ou pela vida.</p>
+							<p class="desc--text">LifeDeadline is a simple and rough project that I made after seeing <strong><a href="http://twitter.com/waitbutwhy" target="_blank">Tim Urban</a></strong>'s <strong>TED Talk</strong>.</p>
+							<p class="desc--text">In his presentation, <strong>Tim</strong> talks about the types of procrastinators, deadlines and the Life Calendar, wich I used to make this.</p>
 						</div>
 						<ul class="desc--list col-xs-12 col-sm-12 col-md-12">
 							<li class="desc--item"><a class="desc--link ted-talk" href="#">TED Talk</a></li>
-							<li class="desc--item"><a class="desc--link" href="#">Quem sou</a></li>
-							<li class="desc--item"><a class="desc--link" href="#">Github</a></li>
+							<li class="desc--item"><a class="desc--link" href="http://twitter.com/mathewcst" target="_blank">About Me</a></li>
+							<li class="desc--item"><a class="desc--link" href="https://github.com/mathewcst/lifedeadline/" target="_blank">Project's Github</a></li>
 						</ul>
 					</div>
 				</div><!--/desc-->
@@ -88,7 +89,7 @@
 
 			<div class="deadline block row" id="deadline">
 				<div class="go-top">
-					
+					<a href="#" class="go-top--link">&#8679;</a>
 				</div>
 
 				<div class="container">
@@ -102,35 +103,70 @@
 
 							<div class="input-group col-xs-12 col-sm-6 col-md-6">
 								<label for="userCountry">Country</label>
-								<select ng-model="countryAverage" class="user-country" name="userCountry" id="userCountry">
-									<option value="" selected disabled>Selecione um país</option>
-									<option ng-repeat="item in whoJSON | orderBy: 'country'" value="{{item.value}}">{{item.country}}</option>
+								<select ng-model="countryAverage" class="user-country" name="userCountry" id="userCountry" ng-options="item.country for item in whoJSON | orderBy: 'country'">
+									<option value="" selected disabled>Select a country</option>
 								</select>
 							</div><!--input-group-->
 
 							<div class="col-xs-12 col-sm-12 col-md-12">
-								<a href="#" class="calculate-deadline" ng-class="{disabled:userBirth.length < 10 || countryAverage == undefined}" ng-click="update(userBirth, countryAverage)">Calcular</a>
+								<a href="#" class="calculate-deadline" ng-class="{disabled:userBirth.length < 10 || countryAverage == undefined}" ng-click="update(userBirth, countryAverage)">
+									<span ng-if="reload == false">Calculate</span>
+									<span ng-if="reload == true">Update</span>
+								</a>
 							</div>
 						</form>
 					</div><!--/form-->
 				
-					<div class="col-md-12" ng-show="reload == true">
-						<div class="desc desc-past">
-							<h1>You have lived <strong>{{weeksLived}} weeks</strong> and have <strong>{{yearsLived}} years</strong>!</h1>
+					<div id="deadline-result" class="deadline--result col-xs-12 col-sm-12 col-md-12" ng-show="reload == true">
+						<div class="result--squares col-xs-12 col-sm-12 col-md-12">
+							
+							<div class="result result-past">
+								<h1>You have lived <strong>{{weeksLived}} weeks</strong> and have <strong>{{yearsLived}} years</strong>!</h1>
+							</div>
+
+							<div class="squares-chart chart-block col-xs-12 col-sm-12 col-md-12">
+								<div class="week" ng-repeat="square in totalSquares" ng-class="{past: $index <= weeksLived}"></div>
+							</div><!--/squares-->
+							
+							<div class="result  col-xs-12 col-sm-12 col-md-12">
+								<a href="#" class="ghost-btn" ng-click="showCharts()" ng-class="{'is-active': displayCharts == 'true'}">
+									<span ng-if="displayCharts == 'false'">See</span>
+									<span ng-if="displayCharts == 'true'">Hide</span>
+									Charts
+								</a>
+								<a href="#" class="ghost-btn" ng-click="showCharts()" ng-class="{'is-active': displayCharts == 'false'}">
+									Understand
+								</a>
+							</div>
+
+							<div id="charts-data">
+								<div class="bar-chart chart-block col-xs-12 col-sm-6 col-md-6" ng-if="displayCharts == 'true'">
+									<canvas id="bar-chart" class="chart chart-bar" chart-data="chartResultsBars" chart-labels="chartLabelsBars" chart-series="chartSeries" chart-legend="true"></canvas>
+								</div><!--/bar-->
+
+								<div class="doughnut-chart chart-block col-xs-12 col-sm-6 col-md-6" ng-if="displayCharts == 'true'">
+									<canvas id="doughnut-chart" class="chart chart-doughnut" chart-data="chartResults" chart-labels="chartLabels" chart-legend="true"></canvas>
+								</div><!--/doughnut-->
+
+								<div class="understand-block col-xs-12 col-sm-12 col-md-12" ng-if="displayCharts == 'false'">
+									<p>When you select a country, we get from <strong><a href="http://www.who.int/gho/mortality_burden_disease/life_tables/en/" target="_blank">World Health Organization</a></strong> a list of data about the <i>life expectation</i> of it. </p>
+									
+									<p>Then, in the <i>Life Calendar</i> and the <i>Charts</i>, the blue boxes ('Weeks Left') are based in the country life expectation.</p>
+
+									<p>For exmaple, in <strong>{{countryAverage.country}}</strong> the life expectation is <strong>{{countryAverage.value}} years</strong></p>
+								</div>
+							</div>
+
 						</div>
-						<div class="desc">
-							<h1>You have <strong>{{weeksLeft}} weeks</strong> to live and expect to live more <strong>{{yearsLeft}} years</strong></h1>
-						</div>
-						<div class="week" ng-repeat="square in totalSquares" ng-class="{past: $index <= weeksLived}"></div>
 					</div><!--/results-->
 
-					<!--				
-					<div class="col-md-6" ng-show="reload == true">
+									
+					<!-- <div class="col-md-6" ng-show="reload == true">
 						<div class="desc">
 							<h1>You have <strong>{{weeksLeft}} weeks</strong> to live and expect to live more <strong>{{yearsLeft}} years</strong></h1>
 						</div>
 						<div class="week" ng-repeat="square in squaresLeft"></div>
-					</div> -->
+					</div>  -->
 				</div><!--/container-->
 			</div><!--/deadline-->
 
@@ -149,6 +185,8 @@
 		<script src="lib/angular-resource/angular-resource.min.js"></script>
 		<script src="lib/angular-route/angular-route.min.js"></script>
 		<script src="lib/ngMask/dist/ngMask.min.js"></script>
+		<script src="lib/Chart.js/Chart.js"></script>
+		<script src="lib/angular-chart.js/dist/angular-chart.min.js"></script>
 		
 		<!-- JQUERY STUFF -->
 		<script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
