@@ -380,86 +380,86 @@ h2
 h2 strong
 	font-size: 25px
 
-// @media screen and (max-width: 460px) and (orientation: portrait)
-// 	.header
+@media screen and (max-width: 420px) and (orientation: portrait)
 
-// 		.logo
+	.modal
+		width: 95vw
+		height: 55vh
 
-// 			svg
-// 				max-width: 300px
-// 				height: auto
-// 				margin: 2vh auto 0
-// 				display: block
+	.header
+	
+		.logo
 
-// 		.desc
-// 			margin: 2vh 0 0
+			svg
+				max-width: 95%
+				margin: 3vh auto 0
 
-// 		.desc--text
-// 			color: $white
-// 			font-size: 1.2rem
-// 			text-align: center
-// 			margin: 2vh auto
+		.desc--item
+			display: block
+			margin: 0 2% 30px
 
-// 			a
-// 				color: $red
-// 				text-decoration: underline
-// 				+fade()
+	.deadline
 
-// 				&:hover,
-// 				&:focus
-// 					text-decoration: none
-// 					+fade()
+		.go-top
+			position: fixed
+			bottom: 1%
+			right: 1%
 
-// 		.desc--list
-// 			margin: 5vh 0
-// 			padding: 0
-// 			list-style: none
-// 			text-align: center
-// 			display: block
 
-// 		.desc--item
-// 			display: inline
-// 			margin: 0 15px
+	// RESULTS
 
-// 		.desc--link	
-// 			color: $white
-// 			font-size: 1rem
-// 			text-transform: uppercase
-// 			border: 1px solid $white
-// 			padding: 8px 12px
-// 			border-radius: 4px
-// 			+fade()
+	.deadline--result
+		padding: 0
 
-// 			&.ted-talk
-// 				border-color: $red
-// 				color: $red
+	.chart-block
+		margin: 0
+		padding: 0
 
-// 			&:hover,
-// 			&:focus
-// 				text-decoration: none
-// 				background: $white
-// 				color: $blackLight
-// 				+fade()
+	.week
+		width: 5px
+		height: 5px
+		margin: 1px
+		display: block
+		float: left
+		border: 1px solid $indigo
+		font-size: 10px
+		color: $indigo
+		font-weight: 300
+		text-align: center
+		line-height: 38px
 
-// 				&.ted-talk
-// 					background: $red
-// 					color: $white
+	.week.past
+		background: $red
+		color: #fff
+		border-color: $red
 
-// 		.go-to
-// 			position: absolute
-// 			bottom: 0
-// 			padding: 2vh 0
-// 			text-align: center
+	.result
+		margin: 20px 0
+		text-align: center
 
-// 			.go-to--link
-// 				font-size: 1.7rem
-// 				color: $white
-// 				text-transform: uppercase
+	.result-past h1
+		color: $red
 
-// 				&:hover,
-// 				&:focus
-// 					text-decoration: none
+	.understand-block
+		padding: 0
 
-// 				span
-// 					display: block
-// 					position: relative
+		p
+			font-size: 1.1rem
+			max-width: 100%
+			color: $blackLight
+			margin: 0 auto 15px
+
+		a
+			color: $red
+
+			&:hover,
+			&:focus
+				text-decoration: none
+
+	h1,
+	h2
+		font-size: 1rem
+		line-height: 1rem
+
+	h1 strong
+		font-size: 1.2rem
